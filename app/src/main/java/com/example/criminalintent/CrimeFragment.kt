@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_crime.*
 import java.util.*
@@ -121,12 +122,14 @@ class CrimeFragment : Fragment(), DatePickerFragment.Listener {
 
     companion object {
         fun newInstance(crimeId: UUID) : CrimeFragment {
-            val args = Bundle().apply {
-                putSerializable(CRIME_ID_KEY, crimeId)
-            }
             return CrimeFragment().apply {
-                arguments = args
+                arguments = newArguments(crimeId)
             }
+        }
+
+        @VisibleForTesting
+        fun newArguments(crimeId: UUID) = Bundle().apply {
+            putSerializable(CRIME_ID_KEY, crimeId)
         }
     }
 
