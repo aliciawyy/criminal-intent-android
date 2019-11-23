@@ -3,10 +3,10 @@ dist: trusty
 
 env:
   matrix:
-    - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
-    - ANDROID_TARGET=android-28 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-25 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-29 ANDROID_ABI=armeabi-v7a
   global:
-    - ADB_INSTALL_TIMEOUT=5
+    - ADB_INSTALL_TIMEOUT=8
 
 
 android:
@@ -14,9 +14,17 @@ android:
     - build-tools-29.0.2
     - android-29
 
+before_script:
+  - chmod +x gradlew      #Grant permissions
+  - android list targets
+  - echo no | android create avd --force --name test --target $ANDROID_TARGET --abi $ANDROID_ABI    #Create AVD for given api
+  - emulator -avd test -no-skin -no-audio -no-window &    #Start emulator
+
 script:
+  - android-wait-for-emulator
   - adb devices
-  - ./gradlew clean assembleDebug assembleRelease testDebug
+  - adb shell input keyevent 82 &
+  - ./gradlew connectedAndroidTest -PdisablePreDex --stacktrace
   - ./gradlew build jacocoTestReport
 
 after_success:
