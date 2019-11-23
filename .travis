@@ -1,0 +1,19 @@
+language: android
+dist: trusty
+
+env:
+  matrix:
+    - ANDROID_TARGET=android-19 ANDROID_ABI=armeabi-v7a
+    - ANDROID_TARGET=android-28 ANDROID_ABI=armeabi-v7a
+  global:
+    - ADB_INSTALL_TIMEOUT=5
+
+
+android:
+  components:
+    - build-tools-27.0.3
+    - android-28
+
+script:
+  - adb devices
+  - ./gradlew clean assembleDebug assembleRelease testDebug
