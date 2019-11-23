@@ -17,3 +17,7 @@ android:
 script:
   - adb devices
   - ./gradlew clean assembleDebug assembleRelease testDebug
+  - ./gradlew build jacocoTestReport
+
+after_success:
+  — bash <(curl -s https://codecov.io/bash)
