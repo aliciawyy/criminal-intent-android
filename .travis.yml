@@ -21,13 +21,10 @@ android:
     - extra-android-m2repository
     - extra-google-m2repository
     - android-$ANDROID_API_LEVEL
-    - addon-google_apis-google-$ANDROID_API_LEVEL
     # sys-img-armeabi-v7a-google_apis-25
     - sys-img-$ANDROID_ABI-google_apis-$ANDROID_API_LEVEL
 
 before_script:
-  - mkdir -p "$ANDROID_HOME/licenses"
-  - cp ./google-licenses/* "$ANDROID_HOME/licenses/"
   - android list sdk --extended --no-ui --all
   - chmod +x gradlew      # Grant permissions
   - android list targets
