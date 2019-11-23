@@ -11,8 +11,8 @@ env:
 
 android:
   components:
-    - build-tools-27.0.3
-    - android-28
+    - build-tools-29.0.2
+    - android-29
 
 script:
   - adb devices

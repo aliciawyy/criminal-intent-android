@@ -1,2 +1,5 @@
 .idea
 app/build
+*.bin
+*.lock
+*.properties
