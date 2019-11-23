@@ -6,13 +6,9 @@ env:
     - ANDROID_API_LEVEL=21 ANDROID_ABI=armeabi-v7a
     - ANDROID_API_LEVEL=28 ANDROID_ABI=x86
   global:
-    - ADB_INSTALL_TIMEOUT=8
+    - ADB_INSTALL_TIMEOUT=10
 
 android:
-  licenses:
-    - 'android-sdk-preview-license-.+'
-    - 'android-sdk-license-.+'
-    - 'google-gdk-license-.+'
   components:
     - tools
     - platform-tools
@@ -34,7 +30,7 @@ before_script:
 
 script:
   - ./gradlew build jacocoTestReport assembleAndroidTest
-  - emulator -avd test -no-skin -no-audio -no-window -engine classic &    #Start emulator
+  - emulator -avd test -no-skin -no-audio -no-window -engine classic &    # Start emulator
   - android-wait-for-emulator
   - adb devices
   - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
