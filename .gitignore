@@ -3,3 +3,7 @@ app/build
 *.bin
 *.lock
 *.properties
+
+build/intermediates/lint-cache/maven\.google/androidx/appcompat/
+
+build/intermediates/
