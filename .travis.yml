@@ -13,7 +13,6 @@ android:
     - build-tools-29.0.2
     - android-29
     - extra-android-m2repository
-    - extra-google-m2repository
     - android-$ANDROID_API_LEVEL
     # sys-img-armeabi-v7a-google_apis-25
     - sys-img-$ANDROID_ABI-android-$ANDROID_API_LEVEL
@@ -24,14 +23,12 @@ before_script:
   - android list targets
   # Create AVD for given api
   - echo no | android create avd --force --name test --target android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
-
-
-script:
   - emulator -list-avds
   - emulator -avd test -noaudio -no-window -engine classic &    # Start emulator
   - android-wait-for-emulator
   - adb devices
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
+
+script:
   - ./gradlew build jacocoTestReport assembleAndroidTest
   - ./gradlew connectedCheck
 
