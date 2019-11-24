@@ -10,8 +10,6 @@ env:
 
 android:
   components:
-    - tools
-    - platform-tools
     - build-tools-29.0.2
     - android-29
     - extra-android-m2repository
@@ -29,7 +27,6 @@ before_script:
 
 
 script:
-  - export ANDROID_SDK_ROOT='--path--to--sdk--'
   - emulator -list-avds
   - emulator -avd test -no-skin -no-audio -no-window &    # Start emulator
   - android-wait-for-emulator
