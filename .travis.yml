@@ -4,7 +4,7 @@ dist: trusty
 env:
   matrix:
     - ANDROID_API_LEVEL=21 ANDROID_ABI=armeabi-v7a
-    - ANDROID_API_LEVEL=28 ANDROID_ABI=x86
+    - ANDROID_API_LEVEL=24 ANDROID_ABI=armeabi-v7a
   global:
     - ADB_INSTALL_TIMEOUT=5
 
@@ -16,19 +16,19 @@ android:
     - extra-google-m2repository
     - android-$ANDROID_API_LEVEL
     # sys-img-armeabi-v7a-google_apis-25
-    - sys-img-$ANDROID_ABI-google_apis-$ANDROID_API_LEVEL
+    - sys-img-$ANDROID_ABI-android-$ANDROID_API_LEVEL
 
 before_script:
   # - android list sdk --extended --no-ui --all
   - chmod +x gradlew      # Grant permissions
   - android list targets
   # Create AVD for given api
-  - echo no | android create avd --force --name test --target android-$ANDROID_API_LEVEL --abi google_apis/$ANDROID_ABI
+  - echo no | android create avd --force --name test --target android-$ANDROID_API_LEVEL --abi $ANDROID_ABI
 
 
 script:
   - emulator -list-avds
-  - emulator -avd test -no-skin -no-audio -no-window &    # Start emulator
+  - emulator -avd test -noaudio -no-window -no-skin &    # Start emulator
   - android-wait-for-emulator
   - adb devices
   - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
