@@ -1,10 +1,7 @@
 package com.example.criminalintent
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import java.util.*
 
 @Dao
@@ -21,4 +18,7 @@ interface CrimeDao {
 
     @Insert
     fun addCrime(crime: Crime)
+
+    @Delete
+    fun deleteCrime(crime: Crime)
 }
