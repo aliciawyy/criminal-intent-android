@@ -22,4 +22,6 @@ class CrimeDetailViewModel : ViewModel() {
     fun saveCrime(crime: Crime) {
         CrimeRepository.get().updateCrime(crime)
     }
+
+    fun getPhotoFile(crime: Crime) = CrimeRepository.get().getPhotoFile(crime)
 }

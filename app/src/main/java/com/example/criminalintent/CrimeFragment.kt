@@ -2,6 +2,7 @@ package com.example.criminalintent
 
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -15,14 +16,17 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.EditText
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.FileProvider
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.fragment_crime.*
+import java.io.File
 import java.util.*
 
 private const val TAG = "CrimeFragment"
 private const val CRIME_ID_KEY = "crime_id_key"
 private const val DIALOG_DATE = "dialog_date"
 private const val REQUEST_DATE = 0
+private const val REQUEST_PHOTO = 2
 private const val DATE_FORMAT = "EEE, MM, dd"
 
 /**
@@ -32,6 +36,8 @@ class CrimeFragment : Fragment(), DatePickerFragment.Listener {
 
 
     private lateinit var crime: Crime
+    private lateinit var photoFile: File
+    private lateinit var photoUri: Uri
 
     private lateinit var titleText: EditText
     private lateinit var dateButton: Button
@@ -86,6 +92,11 @@ class CrimeFragment : Fragment(), DatePickerFragment.Listener {
             androidx.lifecycle.Observer { crime ->
                 crime?.let {
                     this.crime = crime
+                    photoFile = crimeDetailViewModel.getPhotoFile(crime)
+                    photoUri = FileProvider.getUriForFile(
+                        requireActivity(),
+                        "com.example.criminalintent.fileprovider",
+                        photoFile)
                     updateUI()
                 }
             }
