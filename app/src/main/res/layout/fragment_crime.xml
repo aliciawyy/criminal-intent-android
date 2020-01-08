@@ -27,7 +27,7 @@
 
     <Button
         android:id="@+id/crime_date"
-        tools:text = "Wed Nov 14 11:56 EST 2018"
+        tools:text="Wed Nov 14 11:56 EST 2018"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
@@ -37,4 +37,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <Button
+        android:id="@+id/crime_suspect"
+        android:text="@string/crime_suspect_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/crime_report"
+        android:text="@string/crime_report_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>
